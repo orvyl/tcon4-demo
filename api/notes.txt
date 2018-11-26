@@ -1,0 +1,2 @@
+Docker
+docker run --name tcon4-demo-db -e MYSQL_ROOT_PASSWORD=123qwe -d mysql
