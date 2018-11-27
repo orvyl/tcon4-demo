@@ -1,15 +1,10 @@
 package com.orvyl.api.model;
 
-import lombok.Data;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
-@Data
 @Entity
 public class Candidate {
 
@@ -23,5 +18,30 @@ public class Candidate {
     @NotNull(message = "position is required")
     private Position position;
 
+    @OneToMany
+    private List<Voter> voters;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
 }
