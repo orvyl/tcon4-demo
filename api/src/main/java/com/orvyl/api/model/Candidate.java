@@ -26,8 +26,8 @@ public class Candidate {
     public Candidate() {
     }
 
-    @OneToMany
-    private List<Voter> voters;
+    @OneToMany(mappedBy = "candidateId")
+    private List<Vote> votes;
 
     public Long getId() {
         return id;
@@ -51,5 +51,13 @@ public class Candidate {
 
     public void setPosition(Position position) {
         this.position = position;
+    }
+
+    public List<Vote> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(List<Vote> votes) {
+        this.votes = votes;
     }
 }
