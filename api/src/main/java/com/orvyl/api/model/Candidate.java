@@ -18,6 +18,14 @@ public class Candidate {
     @NotNull(message = "position is required")
     private Position position;
 
+    public Candidate(@NotBlank(message = "name is required") String name, @NotNull(message = "position is required") Position position) {
+        this.name = name;
+        this.position = position;
+    }
+
+    public Candidate() {
+    }
+
     @OneToMany
     private List<Voter> voters;
 

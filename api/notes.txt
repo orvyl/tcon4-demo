@@ -1,2 +1,5 @@
-Docker
+start.spring.io - web,jpa,mysql
 docker run --name tcon4-demo-db -e MYSQL_ROOT_PASSWORD=123qwe -d mysql
+create database election_db
+
+

@@ -1,5 +1,9 @@
 package com.orvyl.api;
 
+import com.orvyl.api.model.Candidate;
+import com.orvyl.api.model.Position;
+import com.orvyl.api.repository.CandidateRepository;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +19,26 @@ public class Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
+	}
+
+	// Don't mind me! I will just put some initial data in the db para cool
+	@Bean
+	public CommandLineRunner initializeDatabase(CandidateRepository candidateRepository) {
+		return args -> {
+			Candidate presidentJohn = new Candidate("John", Position.PRESIDENT);
+			Candidate presidentDoe = new Candidate("Doe", Position.PRESIDENT);
+
+			Candidate vicePresidentErica = new Candidate("Erica", Position.VICE_PRESIDENT);
+			Candidate vicePresidentKath = new Candidate("Kath", Position.VICE_PRESIDENT);
+
+			Candidate museNadine = new Candidate("Nadine", Position.MUSE);
+
+			candidateRepository.save(presidentJohn);
+			candidateRepository.save(presidentDoe);
+			candidateRepository.save(vicePresidentErica);
+			candidateRepository.save(vicePresidentKath);
+			candidateRepository.save(museNadine);
+		};
 	}
 
 	@Configuration
