@@ -16,7 +16,9 @@
         <input type="text" name="name" required>
         <br><br>
         Position:<br>
-        <select name="postiion"></select>
+        <select name="postiion" required>
+            <option value="">Select Position</option>
+        </select>
         <br><br>
         <input type="submit" value="Submit">
     </form>
@@ -39,7 +41,7 @@
             
             const data = {
                 name: document.getElementsByName('name')[0].value,
-                position: document.getElementsByTagName('select')[0].value,
+                position: document.getElementsByName('postiion')[0].value,
             }
 
             fetch(API_URL + '/candidate', {
@@ -48,16 +50,15 @@
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8',
                 }
-            })
-            .then(function (response) {
+            }).then(function (response) {
                 // formats response
                 return response.json();
-            })
-            .then(function (candidate) {
+            }).then(function (candidate) {
                 alert(candidate.name + ' candidate created!');
-                window.location = '/';
-            })
-            .catch(function (error) {
+                // clear values
+                document.getElementsByName('name')[0].value = '';
+                document.getElementsByName('postiion')[0].selectedIndex = 0;
+            }).catch(function (error) {
                 alert('error! ' + error);
                 console.log(error);
             })
@@ -68,9 +69,9 @@
         // bind form submit event
         var form = document.getElementsByTagName('form')[0];
         if (form.attachEvent) {
-            form.attachEvent("submit", processForm);
+            form.attachEvent('submit', processForm);
         } else {
-            form.addEventListener("submit", processForm);
+            form.addEventListener('submit', processForm);
         }
     </script>
 </body>

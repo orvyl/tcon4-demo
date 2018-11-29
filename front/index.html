@@ -35,13 +35,11 @@
             row.insertCell(data.length).appendChild(createLink('view', '/view?id=' + id))
         }
 
-        fetch(API_URL + "/candidate", {
+        fetch(API_URL + '/candidate', {
             method: 'GET',
-        })
-        .then(function(response) {
+        }).then(function (response) {
             return response.json();
-        })
-        .then(function(candidates) {
+        }).then(function (candidates) {
             for (let i = 0; i < candidates.length; i++) {
                 table.addRow(
                     candidates[i].id, 
@@ -49,10 +47,9 @@
                     candidates[i].position, 
                     candidates[i].votes.length);
             }
-        })
-        .catch(function(error) {
-            alert('error! ' + error)
-            console.log(error)
+        }).catch(function (error) {
+            alert('error! ' + error);
+            console.log(error);
         })
     </script>
 </body>

@@ -13,10 +13,12 @@
 
     <form>
         Voter's ID:<br>
-        <input type="text" name="name" required>
+        <input type="text" name="voters_id" required>
         <br><br>
         Candidate:<br>
-        <select name="postiion"></select>
+        <select name="candidate" required>
+            <option value="">Select Candidate</option>
+        </select>
         <br><br>
         <input type="submit" value="Submit">
     </form>
@@ -38,8 +40,8 @@
             }
 
             const data = {
-                name: document.getElementsByName('name')[0].value,
-                position: document.getElementsByTagName('select')[0].value,
+                votersId: parseInt(document.getElementsByName('voters_id')[0].value, 10),
+                candidateId: parseInt(document.getElementsByName('candidate')[0].value, 10),
             }
 
             fetch(API_URL + '/vote', {
@@ -48,19 +50,18 @@
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8',
                 }
+            }).then(function (response) {
+                // formats response
+                return response.json();
+            }).then(function (vote) {
+                alert(vote.votersId + ' vote submitted!');
+                // clear values
+                document.getElementsByName('voters_id')[0].value = '';
+                document.getElementsByName('candidate')[0].selectedIndex = 0;
+            }).catch(function (error) {
+                alert('error! ' + error);
+                console.log(error);
             })
-                .then(function (response) {
-                    // formats response
-                    return response.json();
-                })
-                .then(function (vote) {
-                    alert(vote.votersId + ' vote submitted!');
-                    window.location = '/'
-                })
-                .catch(function (error) {
-                    alert('error! ' + error);
-                    console.log(error);
-                })
 
             return false;
         }
@@ -68,9 +69,9 @@
         // bind form submit event
         var form = document.getElementsByTagName('form')[0];
         if (form.attachEvent) {
-            form.attachEvent("submit", processForm);
+            form.attachEvent('submit', processForm);
         } else {
-            form.addEventListener("submit", processForm);
+            form.addEventListener('submit', processForm);
         }
     </script>
 </body>
