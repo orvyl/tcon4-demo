@@ -4,6 +4,13 @@
 </head>
 <body>
     <h1>Candidate Form</h1>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/form">Add Candidate</a></li>
+        <li><a href="/vote-form">Vote</a></li>
+        <li><a href="/result">Results</a></li>
+    </ul>
+
     <form>
         Name:<br>
         <input type="text" name="name" required>
@@ -13,6 +20,7 @@
         <br><br>
         <input type="submit" value="Submit">
     </form>
+    
     <script src="/script.js"></script>
     <script>
         getPositions(function(positions) {
