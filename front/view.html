@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<head>
+    <title>Candidate Form</title>
+</head>
+<body>
+    <h1>Candidate Details</h1>
+    <form>
+        Name:<br>
+        <input type="text" name="name" placeholder="Orvyl">
+        <br><br>
+        Position:<br>
+        <select name="postiion"></select>
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <script src="/script.js"></script>
+    <script>
+        const id = getQueryParam('id')
+        getCandidate(id, function (candidate) {
+            document.getElementsByName('name')[0].value = candidate.name;
+            
+            getPositions(function (positions) {
+                for (let i = 0; i < positions.length; i++) {
+                    var opt = document.createElement("option");
+                    opt.value = positions[i];
+                    opt.innerHTML = positions[i];
+                    // sets candidate position as default value.
+                    if (positions[i] == candidate.position) {
+                        opt.selected = true
+                    }
+                    document.getElementsByTagName('select')[0].appendChild(opt)
+                }
+            })
+        })
+
+        function processForm(e) {
+            if (e.preventDefault) {
+                e.preventDefault();
+            }
+
+            const data = {
+                name: document.getElementsByName('name')[0].value,
+                position: document.getElementsByTagName('select')[0].value,
+            }
+
+            fetch(API_URL + "/candidate", {
+                method: 'PUT',
+                body: JSON.stringify(data),
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                }
+            })
+            .then(function (response) {
+                alert('candidate updated!')
+                return response.json();
+            })
+            .catch(function (error) {
+                alert('error! ' + error)
+                console.log(error)
+            })
+
+            return false;
+        }
+
+        // bind form submit event
+        var form = document.getElementsByTagName('form')[0];
+        if (form.attachEvent) {
+            form.attachEvent("submit", processForm);
+        } else {
+            form.addEventListener("submit", processForm);
+        }
+    </script>
+</body>
+</html>
