@@ -7,13 +7,14 @@ const getPositions = function(handle) {
     .then(function (response) {
         return response.json();
     })
-    .then(function (json) {
-        handle(json)
+    .then(function (positions) {
+        handle(positions)
     })
     .catch(function(error) {
         alert('ERR!' + error)
     })
 }
+
 
 const getCandidate = function (id, handle) {
     fetch(API_URL + '/candidate/' + id, {
@@ -22,8 +23,23 @@ const getCandidate = function (id, handle) {
     .then(function (response) {
         return response.json();
     })
-    .then(function (json) {
-        handle(json)
+    .then(function (candidate) {
+        handle(candidate)
+    })
+    .catch(function (error) {
+        alert('ERR!' + error)
+    })
+}
+
+const getCandidateList = function (handle) {
+    fetch(API_URL + '/candidate', {
+        method: 'GET',
+    })
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (candidates) {
+        handle(candidates)
     })
     .catch(function (error) {
         alert('ERR!' + error)

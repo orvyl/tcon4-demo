@@ -56,15 +56,15 @@
                 method: 'PUT',
                 body: JSON.stringify(data),
                 headers: {
-                    "Content-Type": "application/json; charset=utf-8",
+                    'Content-Type': 'application/json; charset=utf-8',
                 }
             })
             .then(function (response) {
                 // formats response
                 return response.json();
             })
-            .then(function (json) {
-                alert(json.name + ' candidate updated!');
+            .then(function (candidate) {
+                alert(candidate.name + ' candidate updated!');
             })
             .catch(function (error) {
                 alert('error! ' + error);

@@ -46,15 +46,15 @@
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: {
-                    "Content-Type": "application/json; charset=utf-8",
+                    'Content-Type': 'application/json; charset=utf-8',
                 }
             })
             .then(function (response) {
                 // formats response
                 return response.json();
             })
-            .then(function (json) {
-                alert(json.name + ' candidate created!');
+            .then(function (candidate) {
+                alert(candidate.name + ' candidate created!');
                 window.location = '/';
             })
             .catch(function (error) {
