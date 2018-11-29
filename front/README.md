@@ -1,2 +1,3 @@
-`sudo npm install -g serve`
-`serve`
+- run app
+    - `sudo npm install -g serve`
+    - `serve`
