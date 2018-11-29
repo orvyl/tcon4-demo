@@ -23,8 +23,9 @@
     
     <script src="/script.js"></script>
     <script>
-        const id = getQueryParam('id')
-        getCandidate(id, function (candidate) {
+        const candidateId = getQueryParam('id')
+
+        getCandidate(candidateId, function (candidate) {
             document.getElementsByName('name')[0].value = candidate.name;
             
             getPositions(function (positions) {
@@ -51,7 +52,7 @@
                 position: document.getElementsByTagName('select')[0].value,
             }
 
-            fetch(API_URL + "/candidate", {
+            fetch(API_URL + '/candidate/' + candidateId, {
                 method: 'PUT',
                 body: JSON.stringify(data),
                 headers: {
@@ -59,12 +60,15 @@
                 }
             })
             .then(function (response) {
-                alert('candidate updated!')
+                // formats response
                 return response.json();
             })
+            .then(function (json) {
+                alert(json.name + ' candidate updated!');
+            })
             .catch(function (error) {
-                alert('error! ' + error)
-                console.log(error)
+                alert('error! ' + error);
+                console.log(error);
             })
 
             return false;
