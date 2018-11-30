@@ -25,12 +25,12 @@ public class CandidateApi {
     }
 
     @GetMapping(path = "{id}")
-    public Candidate getCandidate(Long id) {
+    public Candidate getCandidate(@PathVariable Long id) {
         return candidateRepository.findById(id).orElse(null);
     }
 
     @PutMapping(path = "{id}")
-    public Candidate updateCandidate(Long id, @RequestBody @Valid Candidate update) {
+    public Candidate updateCandidate(@PathVariable Long id, @RequestBody @Valid Candidate update) {
         Optional<Candidate> foundCandidate = candidateRepository.findById(id);
         if (foundCandidate.isPresent()) {
             Candidate candidate = foundCandidate.get();
@@ -55,7 +55,7 @@ public class CandidateApi {
     }
 
     @GetMapping(path = "position/{pos}")
-    public List<Candidate> getCandidatesByPosition(Position position) {
+    public List<Candidate> getCandidatesByPosition(@PathVariable Position position) {
         return candidateRepository.findByPosition(position);
     }
 

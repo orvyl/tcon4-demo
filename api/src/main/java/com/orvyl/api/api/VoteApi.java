@@ -29,7 +29,7 @@ public class VoteApi {
     }
 
     @GetMapping(path = "result/{position}")
-    public Map<String, Integer> getResultByPosition(Position position) {
+    public Map<String, Integer> getResultByPosition(@PathVariable Position position) {
         Map<String, Integer> res = new HashMap<>();
         List<Candidate> allCandidates = (List<Candidate>) candidateRepository.findAll();
         for (Candidate c : allCandidates) {
