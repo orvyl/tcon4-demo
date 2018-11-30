@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<head>
+    <title>Cadidate</title>
+</head>
+<body>
+    <h1>Cadidate List</h1>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/form">Add Candidate</a></li>
+        <li><a href="/vote-form">Vote</a></li>
+        <li><a href="/result">Results</a></li>
+    </ul>
+
+    <table id="datatable">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Votes</th>
+            <th colspan="2">Action</th>
+        </tr>
+    </table>
+    
+    <script src="/script.js"></script>
+    <script>
+        const table = document.getElementById('datatable')
+        table.addRow = function(...data) {
+            let row = this.insertRow(table.rows.length);
+            for (let i = 0; i < data.length; i++) {
+                row.insertCell(i).innerHTML = data[i];
+            }
+
+            const id = data[0]
+            row.insertCell(data.length).appendChild(createLink('delete', '/delete?id=' + id))
+            row.insertCell(data.length).appendChild(createLink('view', '/view?id=' + id))
+        }
+
+        fetch(API_URL + '/candidate', {
+            method: 'GET',
+        }).then(function (response) {
+            return response.json();
+        }).then(function (candidates) {
+            for (let i = 0; i < candidates.length; i++) {
+                table.addRow(
+                    candidates[i].id, 
+                    candidates[i].name, 
+                    candidates[i].position, 
+                    candidates[i].votes.length);
+            }
+        }).catch(function (error) {
+            alert('error! ' + error);
+            console.log(error);
+        })
+    </script>
+</body>
+</html>

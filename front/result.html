@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head>
+    <title>Results</title>
+</head>
+<body>
+    <h1>Results</h1>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/form">Add Candidate</a></li>
+        <li><a href="/vote-form">Vote</a></li>
+        <li><a href="/result">Results</a></li>
+    </ul>
+
+    <table id="datatable">
+        <tr>
+            <th>Field</th>
+            <th>Values</th>
+        </tr>
+    </table>
+    
+    <script src="/script.js"></script>
+    <script>
+        const table = document.getElementById('datatable')
+        table.addRow = function (...data) {
+            let row = this.insertRow(table.rows.length);
+            for (let i = 0; i < data.length; i++) {
+                row.insertCell(i).innerHTML = data[i];
+            }
+        }
+
+        fetch(API_URL + '/vote', {
+            method: 'GET',
+        }).then(function (response) {
+            return response.json();
+        }).then(function (result) {
+            for (var key in result) {
+                table.addRow(key, result[key])
+            }
+        }).catch(function (error) {
+            alert('error! ' + error)
+            console.log(error);
+        })
+    </script>
+</body>
+</html>
